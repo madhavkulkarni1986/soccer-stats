@@ -27,7 +27,7 @@ pipeline {
                 script {
                     sh "mvn -B test"
                 }
-                stash name: "unit_tests", includes: "target/surefire-reports/**, target/jacoco*.exec"
+                stash name: "unit_tests", includes: "target/jacoco*.exec, target/surefire-reports/**"
             } 
         }
 
@@ -37,7 +37,7 @@ pipeline {
                 script {
                     sh "mvn -B verify -Dsurefire.skip=true"
                 }
-                stash name: 'it_tests', includes: 'target/failsafe-reports/**, target/jacoco*.exec'
+                stash name: 'it_tests', includes: 'target/jacoco*.exec, target/failsafe-reports/**'
             }
         }
         stage('Build Image') {
